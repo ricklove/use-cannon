@@ -116,6 +116,7 @@ export function PhysicsProvider({
     const cb = events[target]?.collide
     cb &&
       cb({
+        data: { body, target },
         body: refs[body],
         contact: {
           bi: refs[bi],
