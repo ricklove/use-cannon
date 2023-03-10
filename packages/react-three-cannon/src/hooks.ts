@@ -68,7 +68,6 @@ export type WorkerApi = {
 } & {
   [K in VectorName]: VectorApi
 } & {
-  uuid: string
   applyForce: (force: Triplet, worldPoint: Triplet) => void
   applyImpulse: (impulse: Triplet, worldPoint: Triplet) => void
   applyLocalForce: (force: Triplet, localPoint: Triplet) => void
@@ -78,6 +77,7 @@ export type WorkerApi = {
   rotation: VectorApi
   scaleOverride: (scale: Triplet) => void
   sleep: () => void
+  uuid: string | null
   wakeUp: () => void
 }
 
@@ -299,7 +299,6 @@ function useBody<B extends BodyProps<unknown[]>, O extends Object3D>(
 
     function makeApi(index?: number): WorkerApi {
       return {
-        uuid: getUUID(ref, index),
         allowSleep: makeAtomic('allowSleep', index),
         angularDamping: makeAtomic('angularDamping', index),
         angularFactor: makeVec('angularFactor', index),
@@ -347,6 +346,7 @@ function useBody<B extends BodyProps<unknown[]>, O extends Object3D>(
         sleepSpeedLimit: makeAtomic('sleepSpeedLimit', index),
         sleepTimeLimit: makeAtomic('sleepTimeLimit', index),
         userData: makeAtomic('userData', index),
+        uuid: getUUID(ref, index),
         velocity: makeVec('velocity', index),
         wakeUp() {
           const uuid = getUUID(ref, index)
