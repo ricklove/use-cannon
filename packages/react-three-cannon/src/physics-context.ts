@@ -10,7 +10,28 @@ import type {
 import { createContext, useContext } from 'react'
 import type { Vector3 } from 'three'
 
-type CannonEvent = CollideBeginEvent | CollideEndEvent | CollideEvent | RayhitEvent
+export type CollideEventWithData = CollideEvent & {
+  data: {
+    bi: string
+    bj: string
+    body: string
+    target: string
+  }
+}
+export type CollideBeginEventWithData = CollideBeginEvent & {
+  data: {
+    body: string
+    target: string
+  }
+}
+export type CollideEndEventWithData = CollideEndEvent & {
+  data: {
+    body: string
+    target: string
+  }
+}
+
+type CannonEvent = CollideBeginEventWithData | CollideEndEventWithData | CollideEventWithData | RayhitEvent
 type CallbackByType<T extends { type: string }> = {
   [K in T['type']]?: T extends { type: K } ? (e: T) => void : never
 }
