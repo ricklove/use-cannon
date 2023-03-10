@@ -79,6 +79,12 @@ export interface WheelInfoOptions {
 
 type WorkerContact = WorkerCollideEvent['data']['contact']
 export type CollideEvent = Omit<WorkerCollideEvent['data'], 'body' | 'target' | 'contact'> & {
+  data:{
+    body: string
+    target: string
+    bi: string
+    bj: string
+  }
   body: Object3D
   contact: Omit<WorkerContact, 'bi' | 'bj'> & {
     bi: Object3D
@@ -87,12 +93,20 @@ export type CollideEvent = Omit<WorkerCollideEvent['data'], 'body' | 'target' | 
   target: Object3D
 }
 export type CollideBeginEvent = {
+  data:{
+    body: string
+    target: string
+  }
   body: Object3D
   op: 'event'
   target: Object3D
   type: 'collideBegin'
 }
 export type CollideEndEvent = {
+  data:{
+    body: string
+    target: string
+  }
   body: Object3D
   op: 'event'
   target: Object3D

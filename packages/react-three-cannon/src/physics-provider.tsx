@@ -116,7 +116,7 @@ export function PhysicsProvider({
     const cb = events[target]?.collide
     cb &&
       cb({
-        data: { body, target },
+        data: { body, target, bi, bj },
         body: refs[body],
         contact: {
           bi: refs[bi],
@@ -132,6 +132,7 @@ export function PhysicsProvider({
     const cbA = events[bodyA]?.collideBegin
     cbA &&
       cbA({
+        data: { body: bodyB, target: bodyA },
         body: refs[bodyB],
         op: 'event',
         target: refs[bodyA],
@@ -140,6 +141,7 @@ export function PhysicsProvider({
     const cbB = events[bodyB]?.collideBegin
     cbB &&
       cbB({
+        data: { body: bodyA, target: bodyB },
         body: refs[bodyA],
         op: 'event',
         target: refs[bodyB],
@@ -151,6 +153,7 @@ export function PhysicsProvider({
     const cbA = events[bodyA]?.collideEnd
     cbA &&
       cbA({
+        data: { body: bodyB, target: bodyA },
         body: refs[bodyB],
         op: 'event',
         target: refs[bodyA],
@@ -159,6 +162,7 @@ export function PhysicsProvider({
     const cbB = events[bodyB]?.collideEnd
     cbB &&
       cbB({
+        data: { body: bodyA, target: bodyB },
         body: refs[bodyA],
         op: 'event',
         target: refs[bodyB],
